@@ -5,6 +5,7 @@ on:
   # Triggers the workflow on push request events but only for the "develop" branch
   push:
     branches: 
+      - main
       - develop
   workflow_dispatch:  # Habilita ejecución manual, al final eliminar
 
