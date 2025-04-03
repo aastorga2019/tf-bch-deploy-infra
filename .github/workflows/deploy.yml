@@ -6,6 +6,7 @@ on:
   push:
     branches: 
       - develop
+  workflow_dispatch:  # Habilita ejecución manual, al final eliminar
 
 jobs:
   deploy:
