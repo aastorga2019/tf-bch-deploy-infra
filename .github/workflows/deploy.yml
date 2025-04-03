@@ -1,0 +1,47 @@
+name: CI - Deploy Infra con Terraform
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push request events but only for the "develop" branch
+  push:
+    branches: 
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out o bajar este repo al ambiente de trabajo bajo variable $GITHUB_WORKSPACE,
+      - name: Checkout codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Inicializar Terraform
+        run: terraform init
+
+      - name: Planificar Terraform
+        run: terraform plan
+
+      - name: Aplicar Terraform
+        run: terraform apply -auto-approve
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+
