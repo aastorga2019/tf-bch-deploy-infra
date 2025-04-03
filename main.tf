@@ -1,5 +1,5 @@
 provider "google" {
-  project = "POC-serviciosGCP"
+  project = "poc-serviciosgcp"
   region  = "us-central1"
 }
 
