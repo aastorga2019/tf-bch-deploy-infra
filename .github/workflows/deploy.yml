@@ -27,6 +27,16 @@ jobs:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
+      - name: Install Docker CLI only, para bajar imagen a los Cloud Run que se caen en TF
+        run: |
+          curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-24.0.7.tgz -o docker.tgz
+          tar xzvf docker.tgz
+          sudo mv docker/docker /usr/local/bin/
+          docker --version
+
+      - name: Check Docker version
+        run: docker --version
+
       - name: Instalar Terraform
         uses: hashicorp/setup-terraform@v2
 
